@@ -1,0 +1,66 @@
+{
+	"dir": {
+		"data": "/data"
+	},
+	"server": {
+		"listenAddr": ":1323",
+		"debug": false
+	},
+	"session": {
+		"name": "zqc",
+		"maxAge": 2592000,
+		"maxLength": 1048576,
+		"keyPrefix": "session_",
+		"secretKey": "9pbOe#v7121JD2P^$(51Nw82V+aSX4X8"
+	},
+	"log": {
+		"level": "info",
+		"echo": {
+			"file": "echo.log"
+		},
+		"request": {
+			"file": "request.log"
+		},
+		"reqresp": {
+			"file": "reqresp.log"
+		},
+		"server": {
+			"file": "server.log"
+		}
+	},
+	"mongodb": {
+		"zqc": {
+			"addrs": "mongodb",
+			"timeout": 5
+		}
+	},
+	"redis": {
+		"zqc": {
+			"address": "redis:6379",
+			"timeout": {
+				"connect": 3,
+				"read": 5,
+				"write": 5
+			},
+			"password": "",
+			"maxIdle": 100,
+			"idleTimeout": 300
+		}
+	},
+	"storage": {
+		"local": {
+			"dir": "/data/upload",
+			"urlBase": "/upload/"
+		},
+		"buckets": {
+			"zqc-img": {
+				"service": "aliyun-oss",
+				"region": "oss-cn-shanghai",
+				"endpoint": "oss-cn-shanghai.aliyuncs.com",
+				"accessKeyId": "your access key id",
+				"accessKeySecret": "your access key secret",
+				"urlBase": "http://zqc-img.oss-cn-shanghai.aliyuncs.com/"
+			}
+		}
+	}
+}

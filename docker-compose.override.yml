@@ -1,0 +1,15 @@
+version: "2"
+services:
+  server:
+    environment:
+      ZQC_SERVER_DEBUG: "true"
+      ZQC_LOG_LEVEL: debug
+    volumes:
+      - ./:/go/src/jaggerwang.net/zqcserverdemo
+      - ~/data/projects/zqc-server-demo/server:/data
+  mongodb:
+    volumes:
+      - ~/data/projects/zqc-server-demo/mongodb:/data
+  redis:
+    volumes:
+      - ~/data/projects/zqc-server-demo/redis:/data
