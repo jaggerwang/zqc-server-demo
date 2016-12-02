@@ -3,7 +3,7 @@
 source ./common.sh
 
 log INFO "build begin ..."
-go get -v ./... && go install -v . && mv $GOPATH/bin/zqcserverdemo $GOPATH/bin/zqc
+go get -v ./... && go install -v . && mv $GOPATH/bin/zqcserver $GOPATH/bin/zqc
 if [[ $? != 0 ]]; then
 	log ERROR "build failed"
 	exit 1
