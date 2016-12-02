@@ -12,24 +12,20 @@ Zaiqiuchang is a mobile app developed using React Native, both iOS and Android a
 
 Of course you should install docker engine first.
 ```
-> mkdir -p /data/zqc-server-demo/server # dir for server log and upload files
-> mkdir -p /data/zqc-server-demo/mongodb # dir for mongodb data and log
-> mkdir -p /data/zqc-server-demo/redis # dir for redis data and log
 > git clone git@github.com:jaggerwang/zqc-server-demo.git && cd zqc-server-demo
 > ./deploy-prod.sh
 ```
-The deploy script use docker-compose to run all needed containers, including server, mongodb and redis. You can change the data dir to your own, but the same change should be made to docker-compose file.
+The deploy script use docker-compose to run all needed containers, including server, mongodb and redis.  
+The data and log of server, mongodb and redis will be saved at host's directory "/data/zqc-server-demo", which mounted at container's path "/data". You can change the data dir to your own, but the same change should be made to docker-compose file.
 
 **run in dev mode with auto detecting code changing**
 
 ```
-> mkdir -p ~/data/projects/zqc-server-demo/server
-> mkdir -p ~/data/projects/zqc-server-demo/mongodb
-> mkdir -p ~/data/projects/zqc-server-demo/redis
 > git clone git@github.com:jaggerwang/zqc-server-demo.git && cd zqc-server-demo
 > ./deploy.sh
 > ./fswatch.sh # fswatch command needed, you can use brew to install it on macOS
 ```
+The data and log of server, mongodb and redis will be saved at host's directory "~/data/projects/zqc-server-demo/server", which mounted at container's path "/data". You can change the data dir to your own, but the same change should be made to docker-compose file.
 
 **build image of your own**
 
