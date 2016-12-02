@@ -36,7 +36,7 @@ The data and log of server, mongodb and redis will be saved at host's directory 
 
 ### API
 
-The server container exposed port 1323, and it mapped to port 10400 of the host. So you can use domain "http://localhost:10040" to access the following api.
+The server container exposed port 1323, and it mapped to port 10400 of the host. So you can use domain "http://localhost:10400" to access the following api.
 
 Path|Method|Description
 ----|------|-----------
