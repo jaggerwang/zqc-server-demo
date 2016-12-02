@@ -62,7 +62,7 @@ Path|Method|Description
 
 **How can I build the base images of this project, including go, mongodb and redis?**
 
-> The dockerfiles of the base images can be found at "https://github.com/jaggerwang/dockerfiles".
+> The dockerfiles of the base images can be found at "https://github.com/jaggerwang/jw-dockerfiles".
 
 ### Other resources
 
