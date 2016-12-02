@@ -30,9 +30,17 @@ The data and log of server, mongodb and redis will be saved at host's directory 
 **build image of your own**
 
 ```
-> git clone git@github.com:jaggerwang/zqc-server-demo.git && cd zqc-server-demo
+> cd zqc-server-demo
 > ./docker-build.sh
 ```
+
+**create mongodb index**
+
+```
+> cd zqc-server-demo
+> docker-compose -p zqc-server-demo exec server zqc db createIndexes
+```
+When deploy, it will auto run this command to create mongodb index. So normally you do not need to do this by your own.
 
 ### API
 
