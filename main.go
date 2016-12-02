@@ -3,7 +3,7 @@
 package main
 
 import (
-	"jaggerwang.net/zqcserverdemo/cmd"
+	"zqcserver/cmd"
 )
 
 func main() {

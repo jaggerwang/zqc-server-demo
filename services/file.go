@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/mgo.v2/bson"
 
-	"jaggerwang.net/zqcserverdemo/models"
+	"zqcserver/models"
 )
 
 type File struct {

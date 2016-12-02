@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"jaggerwang.net/zqcserverdemo/models"
+	"zqcserver/models"
 )
 
 func TestMain(m *testing.M) {

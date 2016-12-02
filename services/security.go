@@ -3,7 +3,7 @@ package services
 import (
 	log "github.com/Sirupsen/logrus"
 
-	"jaggerwang.net/zqcserverdemo/utils"
+	"zqcserver/utils"
 )
 
 type VerifyCode struct {

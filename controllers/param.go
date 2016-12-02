@@ -9,7 +9,7 @@ import (
 
 	"gopkg.in/mgo.v2/bson"
 
-	"jaggerwang.net/zqcserverdemo/services"
+	"zqcserver/services"
 )
 
 func ParseInt(s string, min int, max int) (i int, err error) {

@@ -5,7 +5,7 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/boj/redistore.v1"
 
-	"jaggerwang.net/zqcserverdemo/models"
+	"zqcserver/models"
 )
 
 func Session() echo.MiddlewareFunc {

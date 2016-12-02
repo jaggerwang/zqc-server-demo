@@ -7,8 +7,8 @@ import (
 	valid "github.com/asaskevich/govalidator"
 	"github.com/labstack/echo"
 
-	"jaggerwang.net/zqcserverdemo/middlewares"
-	"jaggerwang.net/zqcserverdemo/services"
+	"zqcserver/middlewares"
+	"zqcserver/services"
 )
 
 type UploadFileParams struct {

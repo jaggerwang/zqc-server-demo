@@ -6,8 +6,8 @@ import (
 
 	"gopkg.in/mgo.v2/bson"
 
-	"jaggerwang.net/zqcserverdemo/models"
-	"jaggerwang.net/zqcserverdemo/utils"
+	"zqcserver/models"
+	"zqcserver/utils"
 )
 
 const (

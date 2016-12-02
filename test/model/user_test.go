@@ -5,7 +5,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"jaggerwang.net/zqcserverdemo/models"
+	"zqcserver/models"
 )
 
 func TestEmptyUserColl(t *testing.T) {

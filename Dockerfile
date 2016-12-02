@@ -1,6 +1,6 @@
 FROM daocloud.io/jaggerwang/go
 
-ENV APP_PATH=/go/src/jaggerwang.net/zqcserverdemo
+ENV APP_PATH=/go/src/zqcserver
 ENV DATA_PATH=/data
 
 ADD . $APP_PATH

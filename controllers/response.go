@@ -7,7 +7,7 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo"
 
-	"jaggerwang.net/zqcserverdemo/services"
+	"zqcserver/services"
 )
 
 type Response struct {
