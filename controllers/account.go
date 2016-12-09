@@ -7,8 +7,8 @@ import (
 	"github.com/labstack/echo"
 	"gopkg.in/mgo.v2/bson"
 
-	"zqcserver/middlewares"
-	"zqcserver/services"
+	"zqc/middlewares"
+	"zqc/services"
 )
 
 type RegisterAccountParams struct {

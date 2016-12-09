@@ -5,7 +5,7 @@ services:
       ZQC_SERVER_DEBUG: "true"
       ZQC_LOG_LEVEL: debug
     volumes:
-      - ./:/go/src/zqcserver
+      - ./:/go/src/zqc
       - ~/data/projects/zqc-server-demo/server:/data
   mongodb:
     volumes:

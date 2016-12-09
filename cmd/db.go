@@ -5,7 +5,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 
-	"zqcserver/cmd/db"
+	"zqc/cmd/db"
 )
 
 var dbCmd = &cobra.Command{

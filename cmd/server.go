@@ -15,8 +15,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"zqcserver/controllers"
-	"zqcserver/middlewares"
+	"zqc/controllers"
+	"zqc/middlewares"
 )
 
 var serverCmd = &cobra.Command{

@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"zqcserver/models"
+	"zqc/models"
 )
 
 var emptyFlags struct {

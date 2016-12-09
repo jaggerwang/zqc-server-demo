@@ -8,7 +8,7 @@ import (
 	"github.com/kr/pretty"
 	"github.com/spf13/cobra"
 
-	"zqcserver/models"
+	"zqc/models"
 )
 
 var listIndexesFlags struct {

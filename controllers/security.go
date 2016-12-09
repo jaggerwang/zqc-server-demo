@@ -8,8 +8,8 @@ import (
 	valid "github.com/asaskevich/govalidator"
 	"github.com/labstack/echo"
 
-	"zqcserver/middlewares"
-	"zqcserver/services"
+	"zqc/middlewares"
+	"zqc/services"
 )
 
 type SendVerifyCodeParams struct {

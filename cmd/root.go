@@ -14,7 +14,7 @@ import (
 	"github.com/spf13/viper"
 	"gopkg.in/mgo.v2/bson"
 
-	"zqcserver/services"
+	"zqc/services"
 )
 
 var rootFlags struct {

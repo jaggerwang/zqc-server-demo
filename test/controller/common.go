@@ -17,26 +17,26 @@ import (
 
 func deploy() (err error) {
 	cmd := exec.Command("./deploy-prod.sh")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zaiqiuchang.com", "server")
+	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	err = cmd.Run()
 	return err
 }
 
 func destroy() (err error) {
 	cmd := exec.Command("docker-compose", "-p", "zqctest", "down", "-v")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zaiqiuchang.com", "server")
+	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	return cmd.Run()
 }
 
 func createDbIndexes() (err error) {
 	cmd := exec.Command("docker-compose", "-p", "zqctest", "exec", "server", "zqc", "db", "createindexes")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zaiqiuchang.com", "server")
+	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	return cmd.Run()
 }
 
 func emptyDb() (err error) {
 	cmd := exec.Command("docker-compose", "-p", "zqctest", "exec", "server", "zqc", "db", "empty")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zaiqiuchang.com", "server")
+	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	err = cmd.Run()
 	return err
 }

@@ -7,7 +7,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"zqcserver/models"
+	"zqc/models"
 )
 
 func TestMain(m *testing.M) {

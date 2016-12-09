@@ -6,9 +6,9 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 
-	"zqcserver/common"
-	"zqcserver/models"
-	"zqcserver/services"
+	"zqc/common"
+	"zqc/models"
+	"zqc/services"
 )
 
 func TestRegisterUser(t *testing.T) {

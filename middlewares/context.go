@@ -5,7 +5,7 @@ import (
 	"github.com/labstack/echo"
 	"gopkg.in/mgo.v2/bson"
 
-	"zqcserver/services"
+	"zqc/services"
 )
 
 type Context struct {
