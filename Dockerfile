@@ -7,7 +7,7 @@ ADD . $APP_PATH
 WORKDIR $APP_PATH
 
 RUN go get -d -v ./...
-RUN go install -v .
+RUN go install -v
 
 VOLUME $DATA_PATH
 

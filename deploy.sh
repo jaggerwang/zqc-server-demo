@@ -3,6 +3,7 @@
 source ./common.sh
 
 log INFO "docker compose begin ..."
+docker-compose pull
 docker-compose -p zqc-server-demo up -d
 log INFO "docker compose end"
 

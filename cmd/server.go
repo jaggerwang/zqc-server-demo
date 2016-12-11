@@ -84,10 +84,6 @@ func initEchoLog(e *echo.Echo) {
 }
 
 func addMiddlewares(e *echo.Echo) {
-	if viper.GetBool("server.debug") {
-		e.Pre(middlewares.ReqRespLogger())
-	}
-
 	e.Pre(middleware.RemoveTrailingSlash())
 
 	e.Use(middleware.Recover())
