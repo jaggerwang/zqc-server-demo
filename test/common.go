@@ -1,4 +1,4 @@
-package controller
+package test
 
 import (
 	"encoding/json"
@@ -23,19 +23,19 @@ func deploy() (err error) {
 }
 
 func destroy() (err error) {
-	cmd := exec.Command("docker-compose", "-p", "zqctest", "down", "-v")
+	cmd := exec.Command("docker-compose", "-p", "zqc", "down", "-v")
 	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	return cmd.Run()
 }
 
 func createDbIndexes() (err error) {
-	cmd := exec.Command("docker-compose", "-p", "zqctest", "exec", "server", "zqc", "db", "createindexes")
+	cmd := exec.Command("docker-compose", "-p", "zqc", "exec", "server", "zqc", "db", "createindexes")
 	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	return cmd.Run()
 }
 
 func emptyDb() (err error) {
-	cmd := exec.Command("docker-compose", "-p", "zqctest", "exec", "server", "zqc", "db", "empty")
+	cmd := exec.Command("docker-compose", "-p", "zqc", "exec", "server", "zqc", "db", "empty")
 	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	err = cmd.Run()
 	return err
@@ -46,7 +46,7 @@ func postResp(path string, f url.Values, token string) (resp *http.Response) {
 		Timeout: 10 * time.Second,
 	}
 
-	url := fmt.Sprintf("http://127.0.0.1:1324%s", path)
+	url := fmt.Sprintf("http://server:1323%s", path)
 	body := strings.NewReader(f.Encode())
 	req, err := http.NewRequest("POST", url, body)
 	So(err, ShouldBeNil)

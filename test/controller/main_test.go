@@ -4,19 +4,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/spf13/viper"
-
-	"zqc/models"
+	"zqc/test"
 )
 
 func TestMain(m *testing.M) {
-	viper.Set("mongodb.zqc", map[string]interface{}{
-		"addrs": "127.0.0.1:27019",
-	})
-
-	models.EmptyDb("zqc", "zqc", "")
-
-	createDbIndexes()
+	test.emptyDb()
 
 	result := m.Run()
 

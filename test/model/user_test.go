@@ -13,11 +13,10 @@ func TestEmptyUserColl(t *testing.T) {
 		uc, err := models.NewUserColl()
 		So(err, ShouldBeNil)
 		err = uc.Insert(models.User{
-			Username: "jaggerwang",
-			Password: "198157",
+			Mobile:   "18683420507",
+			Password: "123456",
 			Nickname: "jag",
 			Gender:   "m",
-			Mobile:   "18683420507",
 		})
 		So(err, ShouldBeNil)
 

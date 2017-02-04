@@ -1,4 +1,4 @@
-package controllers
+package services
 
 import (
 	"errors"
@@ -8,37 +8,21 @@ import (
 	"time"
 
 	"gopkg.in/mgo.v2/bson"
-
-	"zqc/services"
 )
 
-func ParseInt(s string, min int, max int) (i int, err error) {
+func ParseInt(s string, min interface{}, max interface{}) (int, error) {
 	i64, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
-		return 0, err
+		return 0, errors.New(fmt.Sprintf("invalid int %v", s))
 	}
-	if i64 < int64(min) || i64 > int64(max) {
-		return 0, errors.New(fmt.Sprintf("invalid value %v", i64))
+	i := int(i64)
+	if min != nil && i < min.(int) {
+		return 0, errors.New(fmt.Sprintf("must >= %v", min))
 	}
-	return int(i64), nil
-}
-
-func ParseLocation(s string) (loc *services.Location, err error) {
-	slice := strings.Split(s, ",")
-	if len(slice) != 2 {
-		return nil, errors.New("invalid location")
+	if max != nil && i > max.(int) {
+		return 0, errors.New(fmt.Sprintf("must <= %v", max))
 	}
-
-	lon, err := strconv.ParseFloat(slice[0], 32)
-	if err != nil {
-		return nil, errors.New("invalid longitude")
-	}
-	lat, err := strconv.ParseFloat(slice[1], 32)
-	if err != nil {
-		return nil, errors.New("invalid latitude")
-	}
-
-	return &services.Location{float32(lon), float32(lat)}, nil
+	return i, nil
 }
 
 func ParseObjectId(s string) (id bson.ObjectId, err error) {

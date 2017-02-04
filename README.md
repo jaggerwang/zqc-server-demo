@@ -50,17 +50,12 @@ Path|Method|Description
 ----|------|-----------
 /register|POST|Register account.
 /login|GET|Login.
-/resetPassword|GET|Reset password by mobile verify code.
 /isLogined|GET|Check whether logined.
 /logout|GET|Logout.
-/security/sendVerifyCode|GET|Send mobile verify code. It's a faked api, you should implement it by yourself.
 /account/edit|POST|Edit account profile.
 /account/info|GET|Get current account info.
 /user/info|GET|Get user info by id.
-/user/nearby|GET|Get nearby users.
-/file/upload|POST|Upload file, saved on local disk.
-/file/info|GET|Get uploaded file info by id.
-/upload/a.jpg|GET|Access uploaded file. The path can be found in the response of file upload api.
+/user/infos|GET|Get user info by ids.
 
 ### FAQ
 

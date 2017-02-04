@@ -3,12 +3,13 @@ services:
   server:
     image: daocloud.io/jaggerwang/zqc-server-demo
     environment:
+      ZQC_ENV: production
       ZQC_SERVER_DEBUG: "false"
       ZQC_LOG_LEVEL: info
     ports:
       - 10400:1323
     volumes:
-      - /data/zqc-server-demo/server:/data
+      - /data/zaiqiuchang/server:/data
     depends_on:
       - mongodb
       - redis
@@ -17,10 +18,10 @@ services:
     ports:
       - 10410:27017
     volumes:
-      - /data/zqc-server-demo/mongodb:/data
+      - /data/zaiqiuchang/mongodb:/data
   redis:
     image: daocloud.io/jaggerwang/redis
     ports:
       - 10420:6379
     volumes:
-      - /data/zqc-server-demo/redis:/data
+      - /data/zaiqiuchang/redis:/data

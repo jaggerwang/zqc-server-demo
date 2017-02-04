@@ -4,8 +4,6 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/labstack/echo"
 	"gopkg.in/mgo.v2/bson"
-
-	"zqc/services"
 )
 
 type Context struct {
@@ -36,14 +34,6 @@ func (c *Context) SessionUserId() (userId bson.ObjectId) {
 		return v.(bson.ObjectId)
 	} else {
 		return userId
-	}
-}
-
-func (c *Context) SessionVerifyCode() (verifyCode services.VerifyCode) {
-	if v, ok := c.Session().Values["verifyCode"]; ok {
-		return v.(services.VerifyCode)
-	} else {
-		return verifyCode
 	}
 }
 

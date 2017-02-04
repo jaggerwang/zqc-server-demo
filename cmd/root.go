@@ -30,6 +30,7 @@ var rootCmd = &cobra.Command{
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Println(err)
+		os.Exit(-1)
 	}
 }
 
@@ -37,13 +38,12 @@ func init() {
 	cobra.OnInitialize(initConfig, initLog)
 
 	rootCmd.PersistentFlags().StringVarP(&rootFlags.cfgFile, "config", "c", "./config.json", "config file")
-	rootCmd.PersistentFlags().StringP("dir.data", "d", "", "runtime data directory")
-	rootCmd.PersistentFlags().Bool("server.debug", false, "enable/disable debug mode")
-	rootCmd.PersistentFlags().String("log.level", "", "log level")
-	rootCmd.PersistentFlags().String("mongodb.zqc.addrs", "", "addrs of zai qiu chang mongodb")
+	rootCmd.PersistentFlags().String("env", "", "deployment environment")
+	rootCmd.PersistentFlags().String("dir.data", "", "directory for saving runtime data")
+	rootCmd.PersistentFlags().String("log.level", "", "log filter level")
+	rootCmd.PersistentFlags().String("mongodb.zqc.addrs", "", "address of zqc db")
 
 	viper.BindPFlags(rootCmd.PersistentFlags())
-	viper.BindPFlags(rootCmd.Flags())
 
 	rootCmd.AddCommand(serverCmd)
 	rootCmd.AddCommand(dbCmd)
@@ -77,7 +77,7 @@ func initLog() {
 	}
 	log.SetLevel(level)
 
-	w, err := os.OpenFile(filepath.Join(viper.GetString("dir.data"), viper.GetString("log.server.file")), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640)
+	w, err := os.OpenFile(filepath.Join(viper.GetString("dir.data"), viper.GetString("log.app.file")), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640)
 	if err != nil {
 		panic(err)
 	}
@@ -86,6 +86,5 @@ func initLog() {
 
 func registerGobTypes() {
 	gob.Register(bson.NewObjectId())
-	gob.Register(services.VerifyCode{})
 	gob.Register(services.User{})
 }

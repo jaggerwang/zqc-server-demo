@@ -2,6 +2,7 @@ version: "2"
 services:
   server:
     environment:
+      ZQC_ENV: development
       ZQC_SERVER_DEBUG: "true"
       ZQC_LOG_LEVEL: debug
     volumes:

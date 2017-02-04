@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"time"
 
 	valid "github.com/asaskevich/govalidator"
 	"github.com/labstack/echo"
@@ -34,7 +33,6 @@ var serverCmd = &cobra.Command{
 		e := echo.New()
 		e.Debug = viper.GetBool("server.debug")
 		e.HTTPErrorHandler = controllers.HttpErrorHandler
-		e.ShutdownTimeout = 10 * time.Second
 
 		initEchoLog(e)
 
@@ -50,8 +48,7 @@ var serverCmd = &cobra.Command{
 
 func init() {
 	serverCmd.Flags().StringP("server.listenAddr", "l", "", "server listen address")
-
-	viper.BindPFlags(serverCmd.PersistentFlags())
+	serverCmd.Flags().Bool("server.debug", false, "enable/disable server debug mode")
 
 	viper.BindPFlags(serverCmd.Flags())
 
@@ -88,8 +85,6 @@ func addMiddlewares(e *echo.Echo) {
 
 	e.Use(middleware.Recover())
 
-	e.Use(middleware.BodyLimit("100MB"))
-
 	lcfg := middleware.DefaultLoggerConfig
 	w, err := os.OpenFile(filepath.Join(viper.GetString("dir.data"), viper.GetString("log.request.file")), os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0640)
 	if err != nil {
@@ -106,18 +101,12 @@ func addMiddlewares(e *echo.Echo) {
 func addRoutes(e *echo.Echo) {
 	auth := middlewares.Auth()
 
-	e.Static("/upload", viper.GetString("storage.local.dir"))
-
 	e.POST("/register", controllers.RegisterAccount)
 	e.GET("/login", controllers.Login)
-	e.GET("/resetPassword", controllers.ResetPassword)
 	e.GET("/isLogined", controllers.IsLogined)
 	e.GET("/logout", controllers.Logout)
 
 	var g *echo.Group
-
-	g = e.Group("/security")
-	g.GET("/sendVerifyCode", controllers.SendVerifyCode)
 
 	g = e.Group("/account", auth)
 	g.POST("/edit", controllers.EditAccount)
@@ -125,9 +114,5 @@ func addRoutes(e *echo.Echo) {
 
 	g = e.Group("/user", auth)
 	g.GET("/info", controllers.UserInfo)
-	g.GET("/nearby", controllers.NearbyUsers)
-
-	g = e.Group("/file", auth)
-	g.POST("/upload", controllers.UploadFile)
-	g.GET("/info", controllers.FileInfo)
+	g.GET("/infos", controllers.UserInfos)
 }

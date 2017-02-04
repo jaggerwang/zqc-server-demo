@@ -28,12 +28,13 @@ var CreateIndexesCmd = &cobra.Command{
 	Use:   "createIndexes",
 	Short: "Create indexes",
 	Long:  `Create indexes.`,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		err := models.CreateDbIndexes(createIndexesFlags.cluster, createIndexesFlags.db, createIndexesFlags.coll, createIndexesFlags.pos)
 		if err != nil {
-			fmt.Println(err)
-		} else {
-			fmt.Println("create indexes ok")
+			return err
 		}
+
+		fmt.Println("create indexes ok")
+		return nil
 	},
 }

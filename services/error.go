@@ -21,6 +21,7 @@ const (
 // Storage
 const (
 	ErrCodeUploadFileToCloudStorage = 2000 + iota
+	ErrCodeNoStorageAmount
 )
 
 // Lbs
@@ -42,6 +43,7 @@ var ErrMessages = map[int]string{
 	ErrCodeWrongPassword: "密码错误",
 
 	ErrCodeUploadFileToCloudStorage: "上传文件到云存储失败",
+	ErrCodeNoStorageAmount:          "本月存储已用完",
 
 	ErrCodeRequestLbs: "请求LBS出错",
 }

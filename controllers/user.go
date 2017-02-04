@@ -22,7 +22,7 @@ func UserInfo(c echo.Context) (err error) {
 	if ok, err := valid.ValidateStruct(params); !ok {
 		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
 	}
-	id, err := ParseObjectId(params.Id)
+	id, err := services.ParseObjectId(params.Id)
 	if err != nil {
 		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
 	}
@@ -39,42 +39,24 @@ func UserInfo(c echo.Context) (err error) {
 	}, cc)
 }
 
-type NearbyUsersParams struct {
-	Location string `valid:"stringlength(3|30)"`
-	Distance string `valid:"int,optional"`
-	Limit    string `valid:"int,optional"`
+type UserInfosParams struct {
+	Ids string `valid:"stringlength(24|2400)"`
 }
 
-func NearbyUsers(c echo.Context) (err error) {
+func UserInfos(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
-	params := NearbyUsersParams{
-		Location: cc.FormValue("location"),
-		Distance: cc.FormValue("distance"),
-		Limit:    cc.FormValue("limit"),
+	params := UserInfosParams{
+		Ids: cc.FormValue("ids"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
 		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
 	}
-	loc, err := ParseLocation(params.Location)
+	ids, err := services.ParseObjectIds(params.Ids)
 	if err != nil {
 		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
 	}
-	dist := 50000
-	if params.Distance != "" {
-		dist, err = ParseInt(params.Distance, 1000, 10000)
-		if err != nil {
-			return services.NewServiceError(services.ErrCodeInvalidParams, "dist must between 1000 to 10000")
-		}
-	}
-	limit := 10
-	if params.Limit != "" {
-		limit, err = ParseInt(params.Limit, 1, 100)
-		if err != nil {
-			return services.NewServiceError(services.ErrCodeInvalidParams, "limit must between 1 to 100")
-		}
-	}
 
-	users, err := services.NearbyUsers(loc, dist, limit)
+	users, err := services.GetUsers(ids)
 	if err != nil {
 		return err
 	}

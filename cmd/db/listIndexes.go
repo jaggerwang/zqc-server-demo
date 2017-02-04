@@ -3,6 +3,7 @@
 package db
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/kr/pretty"
@@ -29,36 +30,35 @@ var ListIndexesCmd = &cobra.Command{
 	Use:   "listIndexes",
 	Short: "List indexes",
 	Long:  `List indexes.`,
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		if listIndexesFlags.required {
 			if listIndexesFlags.db == "zqc" {
-				fmt.Printf("%# v", pretty.Formatter(models.ZqcDbIndexes))
+				fmt.Printf("%# v\n", pretty.Formatter(models.ZqcDbIndexes))
 			} else {
-				fmt.Println("unknown db", listIndexesFlags.db)
+				return errors.New("unknown db")
 			}
 		} else {
 			collNames, err := models.DbCollNames(listIndexesFlags.cluster, listIndexesFlags.db)
 			if err != nil {
-				fmt.Println(err)
-				return
+				return err
 			}
 
 			for _, collName := range collNames {
 				if listIndexesFlags.coll == "" || listIndexesFlags.coll == collName {
 					coll, err := models.NewMongoColl(listIndexesFlags.cluster, listIndexesFlags.db, collName)
 					if err != nil {
-						fmt.Println(err)
-						return
+						return err
 					}
 
 					indexes, err := coll.Indexes()
 					if err != nil {
-						fmt.Println(err)
-						return
+						return err
 					}
 					fmt.Printf("%# v\n", pretty.Formatter(indexes))
 				}
 			}
 		}
+
+		return nil
 	},
 }

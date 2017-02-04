@@ -7,24 +7,14 @@ import (
 )
 
 type User struct {
-	Id             bson.ObjectId `bson:"_id,omitempty"`
-	Username       string        `bson:"username"`
-	Password       string        `bson:"password"`
-	Salt           string        `bson:"salt"`
-	Nickname       string        `bson:"nickname,omitempty"`
-	Gender         string        `bson:"gender,omitempty"`
-	Mobile         string        `bson:"mobile,omitempty"`
-	AvatarType     string        `bson:"avatarType"`
-	AvatarName     string        `bson:"avatarName,omitempty"`
-	AvatarId       bson.ObjectId `bson:"avatarId,omitempty"`
-	Email          string        `bson:"email,omitempty"`
-	Intro          string        `bson:"intro,omitempty"`
-	BackgroundType string        `bson:"backgroundType"`
-	BackgroundName string        `bson:"backgroundName,omitempty"`
-	BackgroundId   bson.ObjectId `bson:"backgroundId,omitempty"`
-	Location       *Point        `bson:"location"`
-	CreateTime     *time.Time    `bson:"createTime,omitempty"`
-	UpdateTime     *time.Time    `bson:"updateTime,omitempty"`
+	Id         bson.ObjectId `bson:"_id,omitempty"`
+	Mobile     string        `bson:"mobile"`
+	Password   string        `bson:"password"`
+	Salt       string        `bson:"salt"`
+	Nickname   string        `bson:"nickname,omitempty"`
+	Gender     string        `bson:"gender,omitempty"`
+	CreateTime *time.Time    `bson:"createTime"`
+	UpdateTime *time.Time    `bson:"updateTime,omitempty"`
 }
 
 type UserColl struct {

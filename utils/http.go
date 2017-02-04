@@ -9,11 +9,10 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
-var client = &http.Client{
-	Timeout: 5 * time.Second,
-}
-
-func HttpRequestJson(req *http.Request) (result map[string]interface{}, err error) {
+func HttpRequestJson(req *http.Request, timeout time.Duration) (result map[string]interface{}, err error) {
+	client := &http.Client{
+		Timeout: timeout,
+	}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err

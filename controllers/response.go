@@ -38,8 +38,6 @@ func ResponseJSON(status int, resp Response, c echo.Context) (err error) {
 }
 
 func HttpErrorHandler(err error, c echo.Context) {
-	c.Echo().Logger.Error(err)
-
 	status := http.StatusOK
 	code := services.ErrCodeFail
 	var message string
@@ -52,7 +50,7 @@ func HttpErrorHandler(err error, c echo.Context) {
 	if he, ok := err.(*echo.HTTPError); ok {
 		status = he.Code
 		code = services.ErrCodeHttp
-		message = he.Message
+		message = he.Error()
 	} else if se, ok := err.(*services.ServiceError); ok {
 		code = se.Code
 		if c.Echo().Debug {
