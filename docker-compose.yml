@@ -9,7 +9,7 @@ services:
     ports:
       - 10400:1323
     volumes:
-      - /data/zaiqiuchang/server:/data
+      - /data/zqc-server-demo/server:/data
     depends_on:
       - mongodb
       - redis
@@ -18,10 +18,10 @@ services:
     ports:
       - 10410:27017
     volumes:
-      - /data/zaiqiuchang/mongodb:/data
+      - /data/zqc-server-demo/mongodb:/data
   redis:
     image: daocloud.io/jaggerwang/redis
     ports:
       - 10420:6379
     volumes:
-      - /data/zaiqiuchang/redis:/data
+      - /data/zqc-server-demo/redis:/data
