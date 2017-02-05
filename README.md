@@ -2,6 +2,20 @@
 
 Zaiqiuchang is a mobile app developed using React Native, both iOS and Android are supported. This project is the lite version of the api service code, which developed in Go, and deploy using Docker. The lite version is only including user related api, but it should be a good start point for developing any api service. 
 
+### Packages
+
+|Package|Description|
+|-------|-----------|
+|[github.com/labstack/echo](https://echo.labstack.com/)|Http server and framework.|
+|[github.com/spf13/cobra](https://github.com/spf13/cobra)|CLI app framework.|
+|[github.com/spf13/viper](https://github.com/spf13/viper)|Manage app configuration.|
+|[github.com/asaskevich/govalidator](https://github.com/asaskevich/govalidator)|Validate input.|
+|[github.com/Sirupsen/logrus](https://github.com/Sirupsen/logrus)|Logging.|
+|[gopkg.in/mgo.v2](https://labix.org/mgo)|Mongodb driver.|
+|[github.com/garyburd/redigo/redis](https://github.com/garyburd/redigo/)|Redis driver.|
+|[github.com/gorilla/sessions](https://github.com/gorilla/sessions)|Manage user session.|
+|[github.com/smartystreets/goconvey/convey](https://github.com/smartystreets/goconvey)|Test framework.|
+
 ### How to deploy
 
 You need install [docker engine](https://docs.docker.com/engine/installation/) first.
