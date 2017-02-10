@@ -28,16 +28,17 @@ You need install [docker engine](https://docs.docker.com/engine/installation/) f
 > ./deploy.sh # pull images and run containers
 > ./fswatch.sh # watching code change, fswatch needed
 ```
+
 The data and log of server, mongodb and redis will be saved at host's path "~/data/projects/zqc-server-demo", which mounted at container's path "/data".
 
 **run in prod mode**
 
-Of course you should install docker engine first.
 ```
 > git clone git@github.com:jaggerwang/zqc-server-demo.git && cd zqc-server-demo
 > mkdir -p /data/zqc-server-demo # create directory for data volumes
 > ./deploy-prod.sh
 ```
+
 The data and log of server, mongodb and redis will be saved at host's path "/data/zqc-server-demo", which mounted at container's path "/data".
 
 **build image of your own**
