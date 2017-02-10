@@ -8,7 +8,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	test.emptyDb()
+	test.EmptyDb()
 
 	result := m.Run()
 

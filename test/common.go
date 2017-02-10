@@ -15,33 +15,14 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func deploy() (err error) {
-	cmd := exec.Command("./deploy-prod.sh")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
-	err = cmd.Run()
-	return err
-}
-
-func destroy() (err error) {
-	cmd := exec.Command("docker-compose", "-p", "zqc", "down", "-v")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
-	return cmd.Run()
-}
-
-func createDbIndexes() (err error) {
-	cmd := exec.Command("docker-compose", "-p", "zqc", "exec", "server", "zqc", "db", "createindexes")
-	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
-	return cmd.Run()
-}
-
-func emptyDb() (err error) {
+func EmptyDb() (err error) {
 	cmd := exec.Command("docker-compose", "-p", "zqc", "exec", "server", "zqc", "db", "empty")
 	cmd.Dir = filepath.Join(os.Getenv("GOPATH"), "src", "zqc")
 	err = cmd.Run()
 	return err
 }
 
-func postResp(path string, f url.Values, token string) (resp *http.Response) {
+func PostResp(path string, f url.Values, token string) (resp *http.Response) {
 	client := &http.Client{
 		Timeout: 10 * time.Second,
 	}
@@ -59,8 +40,8 @@ func postResp(path string, f url.Values, token string) (resp *http.Response) {
 	return resp
 }
 
-func post(path string, f url.Values, token string) (body []byte) {
-	resp := postResp(path, f, token)
+func Post(path string, f url.Values, token string) (body []byte) {
+	resp := PostResp(path, f, token)
 	defer resp.Body.Close()
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -69,8 +50,8 @@ func post(path string, f url.Values, token string) (body []byte) {
 	return body
 }
 
-func postResult(path string, f url.Values, token string) (result map[string]interface{}) {
-	body := post(path, f, token)
+func PostResult(path string, f url.Values, token string) (result map[string]interface{}) {
+	body := Post(path, f, token)
 
 	err := json.Unmarshal(body, &result)
 	So(err, ShouldBeNil)

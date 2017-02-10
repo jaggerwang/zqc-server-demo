@@ -6,22 +6,10 @@ services:
       ZQC_ENV: production
       ZQC_SERVER_DEBUG: "false"
       ZQC_LOG_LEVEL: info
-    ports:
-      - 10400:1323
-    volumes:
-      - /data/zqc-server-demo/server:/data
     depends_on:
       - mongodb
       - redis
   mongodb:
     image: daocloud.io/jaggerwang/mongodb
-    ports:
-      - 10410:27017
-    volumes:
-      - /data/zqc-server-demo/mongodb:/data
   redis:
     image: daocloud.io/jaggerwang/redis
-    ports:
-      - 10420:6379
-    volumes:
-      - /data/zqc-server-demo/redis:/data

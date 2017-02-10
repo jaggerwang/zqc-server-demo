@@ -1,0 +1,11 @@
+version: "2"
+services:
+  server:
+    ports:
+      - 10401:1323
+  mongodb:
+    ports:
+      - 10411:27017
+  redis:
+    ports:
+      - 10421:6379

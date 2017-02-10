@@ -5,12 +5,18 @@ services:
       ZQC_ENV: development
       ZQC_SERVER_DEBUG: "true"
       ZQC_LOG_LEVEL: debug
+    ports:
+      - 10400:1323
     volumes:
       - ./:/go/src/zqc
       - ~/data/projects/zqc-server-demo/server:/data
   mongodb:
+    ports:
+      - 10410:27017
     volumes:
       - ~/data/projects/zqc-server-demo/mongodb:/data
   redis:
+    ports:
+      - 10420:6379
     volumes:
       - ~/data/projects/zqc-server-demo/redis:/data

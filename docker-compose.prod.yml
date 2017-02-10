@@ -1,0 +1,17 @@
+version: "2"
+services:
+  server:
+    ports:
+      - 10400:1323
+    volumes:
+      - /data/zqc-server-demo/server:/data
+  mongodb:
+    ports:
+      - 10410:27017
+    volumes:
+      - /data/zqc-server-demo/mongodb:/data
+  redis:
+    ports:
+      - 10420:6379
+    volumes:
+      - /data/zqc-server-demo/redis:/data

@@ -24,7 +24,7 @@ func TestRegisterUser(t *testing.T) {
 			f.Set("password", password)
 			f.Set("nickname", nickname)
 			f.Set("gender", gender)
-			result := postResult("/account/register", f, "")
+			result := PostResult("/register", f, "")
 
 			So(result["code"].(float64), ShouldEqual, common.ErrCodeOk)
 			user := result["data"].(map[string]interface{})["user"].(map[string]interface{})
@@ -54,7 +54,7 @@ func TestEditUser(t *testing.T) {
 			f := make(url.Values)
 			f.Set("mobile", mobile)
 			f.Set("nickname", nickname)
-			result := postResult("/account/edit", f, token)
+			result := PostResult("/account/edit", f, token)
 
 			So(result["code"].(float64), ShouldEqual, common.ErrCodeOk)
 			user := result["data"].(map[string]interface{})["user"].(map[string]interface{})
@@ -74,7 +74,7 @@ func createUser() map[string]interface{} {
 	f.Set("password", "123456")
 	f.Set("nickname", "jag")
 	f.Set("gender", "m")
-	result := postResult("/account/register", f, "")
+	result := PostResult("/register", f, "")
 	So(result["code"].(float64), ShouldEqual, common.ErrCodeOk)
 	return result["data"].(map[string]interface{})["user"].(map[string]interface{})
 }
@@ -83,7 +83,7 @@ func login() string {
 	f := make(url.Values)
 	f.Set("mobile", "18683420507")
 	f.Set("password", "123456")
-	result := postResult("/account/login", f, "")
+	result := PostResult("/login", f, "")
 	So(result["code"].(float64), ShouldEqual, common.ErrCodeOk)
 	return result["data"].(map[string]interface{})["token"].(string)
 }

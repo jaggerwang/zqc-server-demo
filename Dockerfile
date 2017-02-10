@@ -6,7 +6,7 @@ ENV DATA_PATH=/data
 ADD . $APP_PATH
 WORKDIR $APP_PATH
 
-RUN go get -d -v ./...
+RUN go get -v ./...
 RUN go install -v
 
 VOLUME $DATA_PATH
