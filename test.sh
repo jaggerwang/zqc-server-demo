@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source ./common.sh
+
 ./deploy-test.sh
 
 log INFO "run unittest begin ..."
