@@ -41,11 +41,75 @@ The data and log of server, mongodb and redis will be saved at host's path "~/da
 
 The data and log of server, mongodb and redis will be saved at host's path "/data/zqc-server-demo", which mounted at container's path "/data".
 
+**run test**
+
+```
+> cd zqc-server-demo
+> ./test.sh
+jagger-mbp 2017-02-11 16:00:44 INFO deploy test begin ...
+Pulling mongodb (daocloud.io/jaggerwang/mongodb:latest)...
+...
+Pulling redis (daocloud.io/jaggerwang/redis:latest)...
+...
+Pulling server (daocloud.io/jaggerwang/zqc-server-demo:latest)...
+...
+zqcserverdemotest_mongodb_1 is up-to-date
+zqcserverdemotest_redis_1 is up-to-date
+zqcserverdemotest_server_1 is up-to-date
+jagger-mbp 2017-02-11 16:00:50 INFO deploy test end
+jagger-mbp 2017-02-11 16:00:50 INFO empty db begin ...
+using config file ./config.json
+empty db ok
+jagger-mbp 2017-02-11 16:00:50 INFO empty db end
+jagger-mbp 2017-02-11 16:00:50 INFO create db indexes begin ...
+using config file ./config.json
+create indexes ok
+jagger-mbp 2017-02-11 16:00:50 INFO create db indexes end
+jagger-mbp 2017-02-11 16:00:51 INFO run unittest begin ...
+2017/02/11 16:00:51 goconvey.go:61: Initial configuration: [host: 0.0.0.0] [port: 8080] [poll: 250ms] [cover: true]
+2017/02/11 16:00:51 tester.go:19: Now configured to test 10 packages concurrently.
+2017/02/11 16:00:51 goconvey.go:192: Serving HTTP at: http://[::]:8080
+2017/02/11 16:00:51 integration.go:122: File system state modified, publishing current folders... 0 40135146353
+2017/02/11 16:00:51 goconvey.go:118: Received request from watcher to execute tests...
+2017/02/11 16:00:51 executor.go:69: Executor status: 'executing'
+...
+2017/02/11 16:01:03 parser.go:24: [passed]: zqc/test
+2017/02/11 16:01:03 executor.go:69: Executor status: 'idle'
+```
+
+Script `tesh.sh` will run a new group of docker containers for testing, including server, mongodb and redis. The new group has separated volumes and ports, to avoid empty the existing data. We use goconvey to write and run our unittests. It supplied a web console to show the test result, and will run test automatically when detected code change.
+
 **build image of your own**
 
 ```
 > cd zqc-server-demo
 > ./docker-build.sh
+```
+
+### Command
+
+**help**
+
+```
+> cd zqc-server-demo
+> docker-compose -p zqc-server-demo exec server zqc
+Zai qiu chang app.
+
+Usage:
+  zqc [command]
+
+Available Commands:
+  db          Database admin
+  server      Run server
+
+Flags:
+  -c, --config string              config file (default "./config.json")
+      --dir.data string            directory for saving runtime data
+      --env string                 deployment environment
+      --log.level string           log filter level
+      --mongodb.zqc.addrs string   address of zqc db
+
+Use "zqc [command] --help" for more information about a command.
 ```
 
 **create mongodb index**
