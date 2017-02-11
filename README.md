@@ -20,7 +20,7 @@ Zaiqiuchang is a mobile app developed using React Native, both iOS and Android a
 
 You need install [docker engine](https://docs.docker.com/engine/installation/) first.
 
-**run in dev mode with auto detecting code changing**
+**run in dev mode with auto detecting code change**
 
 ```
 > git clone git@github.com:jaggerwang/zqc-server-demo.git && cd zqc-server-demo
@@ -77,7 +77,10 @@ jagger-mbp 2017-02-11 16:00:51 INFO run unittest begin ...
 2017/02/11 16:01:03 executor.go:69: Executor status: 'idle'
 ```
 
-Script `tesh.sh` will run a new group of docker containers for testing, including server, mongodb and redis. The new group has separated volumes and ports, to avoid empty the existing data. We use goconvey to write and run our unittests. It supplied a web console to show the test result, and will run test automatically when detected code change.
+Script `tesh.sh` will run a new group of docker containers to run unittests, including server, mongodb and redis. The new group has separated volumes and ports, to avoid empty the existing data. We use `goconvey` to write and run unittests. It supplied a web console to show the test result, and will run test automatically when detected code change.
+
+Open url "http://localhost:10402/" to view test result.
+<img src="https://zqc.cdn.zaiqiuchang.com/github/goconvey-result.png?x-oss-process=style/w-720" />
 
 **build image of your own**
 
