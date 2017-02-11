@@ -7,8 +7,9 @@ ADD . $APP_PATH
 WORKDIR $APP_PATH
 
 RUN go get -d -v ./...
-RUN go install github.com/smartystreets/goconvey
 RUN go install -v
+
+RUN go get github.com/smartystreets/goconvey
 
 VOLUME $DATA_PATH
 
