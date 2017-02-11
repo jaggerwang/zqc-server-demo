@@ -1,4 +1,4 @@
-package utils
+package util
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	log "github.com/Sirupsen/logrus"
 )
 
-func HttpRequestJson(req *http.Request, timeout time.Duration) (result map[string]interface{}, err error) {
+func Request(req *http.Request, timeout time.Duration) (body []byte, err error) {
 	client := &http.Client{
 		Timeout: timeout,
 	}
@@ -19,7 +19,7 @@ func HttpRequestJson(req *http.Request, timeout time.Duration) (result map[strin
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err = ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -30,6 +30,15 @@ func HttpRequestJson(req *http.Request, timeout time.Duration) (result map[strin
 		"respHeader": resp.Header,
 		"respBody":   string(body),
 	}).Debug("http request")
+
+	return body, nil
+}
+
+func RequestJson(req *http.Request, timeout time.Duration) (result map[string]interface{}, err error) {
+	body, err := Request(req, timeout)
+	if err != nil {
+		return nil, err
+	}
 
 	err = json.Unmarshal(body, &result)
 	if err != nil {

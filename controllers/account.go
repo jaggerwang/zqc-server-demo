@@ -11,22 +11,24 @@ import (
 	"zqc/services"
 )
 
-type RegisterAccountParams struct {
-	Mobile   string `valid:"matches(^[0-9]{11}$)"`
-	Password string `valid:"stringlength(6|20)"`
-}
-
 func RegisterAccount(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
-	params := RegisterAccountParams{
+	params := struct {
+		Mobile   string `valid:"matches(^[0-9]{11}$)"`
+		Password string `valid:"stringlength(6|20)"`
+		Nickname string `valid:"stringlength(3|20)"`
+		Gender   string `valid:"stringlength(1|1)"`
+	}{
 		Mobile:   cc.FormValue("mobile"),
 		Password: cc.FormValue("password"),
+		Nickname: cc.FormValue("nickname"),
+		Gender:   cc.FormValue("gender"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
 		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
 	}
 
-	user, err := services.CreateUser(params.Mobile, params.Password)
+	user, err := services.CreateUser(params.Mobile, params.Password, params.Nickname, params.Gender)
 	if err != nil {
 		return err
 	}
@@ -38,14 +40,12 @@ func RegisterAccount(c echo.Context) (err error) {
 	}, cc)
 }
 
-type LoginParams struct {
-	Mobile   string `valid:"matches(^[0-9]{11}$)"`
-	Password string `valid:"stringlength(6|20)"`
-}
-
 func Login(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
-	params := LoginParams{
+	params := struct {
+		Mobile   string `valid:"matches(^[0-9]{11}$)"`
+		Password string `valid:"stringlength(6|20)"`
+	}{
 		Mobile:   cc.FormValue("mobile"),
 		Password: cc.FormValue("password"),
 	}
@@ -75,20 +75,21 @@ func Login(c echo.Context) (err error) {
 func IsLogined(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
 
-	var user *services.User
 	id := cc.SessionUserId()
 	if id != "" {
-		user, err = services.GetUser(id)
+		user, err := services.GetUser(id)
 		if err != nil {
 			return err
 		}
+		return ResponseJSON(http.StatusOK, Response{
+			Data: map[string]interface{}{
+				"user": user,
+			},
+		}, cc)
+	} else {
+		return ResponseJSON(http.StatusOK, Response{}, cc)
 	}
 
-	return ResponseJSON(http.StatusOK, Response{
-		Data: map[string]interface{}{
-			"user": user,
-		},
-	}, cc)
 }
 
 func Logout(c echo.Context) (err error) {
@@ -98,15 +99,13 @@ func Logout(c echo.Context) (err error) {
 	return ResponseJSON(http.StatusOK, Response{}, cc)
 }
 
-type EditAccountParams struct {
-	Mobile   string `valid:"matches(^[0-9]{11}$),optional"`
-	Nickname string `valid:"stringlength(3|20),optional"`
-	Gender   string `valid:"matches(^m|f$),optional"`
-}
-
 func EditAccount(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
-	params := EditAccountParams{
+	params := struct {
+		Mobile   string `valid:"matches(^[0-9]{11}$),optional"`
+		Nickname string `valid:"stringlength(3|20),optional"`
+		Gender   string `valid:"matches(^m|f$),optional"`
+	}{
 		Mobile:   cc.FormValue("mobile"),
 		Nickname: cc.FormValue("nickname"),
 		Gender:   cc.FormValue("gender"),

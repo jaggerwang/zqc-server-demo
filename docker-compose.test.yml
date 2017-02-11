@@ -3,6 +3,9 @@ services:
   server:
     ports:
       - 10401:1323
+      - 10402:8080
+    volumes:
+      - ./:/go/src/zqc
   mongodb:
     ports:
       - 10411:27017

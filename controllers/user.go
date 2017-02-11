@@ -10,13 +10,11 @@ import (
 	"zqc/services"
 )
 
-type UserInfoParams struct {
-	Id string `valid:"objectidhex"`
-}
-
 func UserInfo(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
-	params := UserInfoParams{
+	params := struct {
+		Id string `valid:"objectidhex"`
+	}{
 		Id: cc.FormValue("id"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
@@ -39,13 +37,11 @@ func UserInfo(c echo.Context) (err error) {
 	}, cc)
 }
 
-type UserInfosParams struct {
-	Ids string `valid:"stringlength(24|2400)"`
-}
-
 func UserInfos(c echo.Context) (err error) {
 	cc := c.(*middlewares.Context)
-	params := UserInfosParams{
+	params := struct {
+		Ids string `valid:"stringlength(24|2400)"`
+	}{
 		Ids: cc.FormValue("ids"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {

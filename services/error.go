@@ -18,17 +18,6 @@ const (
 	ErrCodeWrongPassword = 1000 + iota
 )
 
-// Storage
-const (
-	ErrCodeUploadFileToCloudStorage = 2000 + iota
-	ErrCodeNoStorageAmount
-)
-
-// Lbs
-const (
-	ErrCodeRequestLbs = 3000 + iota
-)
-
 var ErrMessages = map[int]string{
 	ErrCodeOk:                "成功",
 	ErrCodeFail:              "失败",
@@ -41,11 +30,6 @@ var ErrMessages = map[int]string{
 	ErrCodeInvalidVerifyCode: "验证码错误",
 
 	ErrCodeWrongPassword: "密码错误",
-
-	ErrCodeUploadFileToCloudStorage: "上传文件到云存储失败",
-	ErrCodeNoStorageAmount:          "本月存储已用完",
-
-	ErrCodeRequestLbs: "请求LBS出错",
 }
 
 type ServiceError struct {
@@ -61,7 +45,7 @@ func NewServiceError(code int, message string, ctx ...interface{}) (err *Service
 	return &ServiceError{
 		Code:    code,
 		Message: message,
-		Context: &ctx,
+		Context: ctx,
 	}
 }
 
