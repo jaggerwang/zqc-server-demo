@@ -27,7 +27,7 @@ var EmptyCmd = &cobra.Command{
 	Short: "Empty all collections in db",
 	Long:  `Empty all collections in db.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		err := models.EmptyDb(emptyFlags.cluster, emptyFlags.db, emptyFlags.coll)
+		err := models.EmptyDB(emptyFlags.cluster, emptyFlags.db, emptyFlags.coll)
 		if err != nil {
 			return err
 		}

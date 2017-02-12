@@ -29,7 +29,7 @@ func ResponseJSON(status int, resp Response, c echo.Context) (err error) {
 	return c.JSON(status, resp)
 }
 
-func HttpErrorHandler(err error, c echo.Context) {
+func ErrorHandler(err error, c echo.Context) {
 	status := http.StatusOK
 	code := services.ErrCodeFail
 	var message string

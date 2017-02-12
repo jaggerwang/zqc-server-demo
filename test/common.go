@@ -5,8 +5,8 @@ import (
 	"zqc/services"
 )
 
-func emptyDb() {
-	models.EmptyDb("zqc", "zqc", "")
+func emptyDB() {
+	models.EmptyDB("zqc", "zqc", "")
 }
 
 func createUser() services.User {

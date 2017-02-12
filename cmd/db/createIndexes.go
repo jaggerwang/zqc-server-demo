@@ -29,7 +29,7 @@ var CreateIndexesCmd = &cobra.Command{
 	Short: "Create indexes",
 	Long:  `Create indexes.`,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		err := models.CreateDbIndexes(createIndexesFlags.cluster, createIndexesFlags.db, createIndexesFlags.coll, createIndexesFlags.pos)
+		err := models.CreateDBIndexes(createIndexesFlags.cluster, createIndexesFlags.db, createIndexesFlags.coll, createIndexesFlags.pos)
 		if err != nil {
 			return err
 		}

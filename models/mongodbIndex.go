@@ -4,7 +4,7 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
-var ZqcDbIndexes = map[string][]mgo.Index{
+var ZqcDBIndexes = map[string][]mgo.Index{
 	"user": []mgo.Index{
 		mgo.Index{
 			Key:        []string{"mobile"},
@@ -27,10 +27,10 @@ var ZqcDbIndexes = map[string][]mgo.Index{
 	},
 }
 
-func CreateDbIndexes(clusterName string, dbName string, collName string, pos int) (err error) {
+func CreateDBIndexes(clusterName string, dbName string, collName string, pos int) (err error) {
 	var collNames []string
 	if collName == "" {
-		collNames, err = DbCollNames(clusterName, dbName)
+		collNames, err = DBCollNames(clusterName, dbName)
 		if err != nil {
 			return err
 		}
@@ -44,7 +44,7 @@ func CreateDbIndexes(clusterName string, dbName string, collName string, pos int
 			return err
 		}
 
-		for i, index := range ZqcDbIndexes[collName] {
+		for i, index := range ZqcDBIndexes[collName] {
 			if pos == -1 || i == pos {
 				err := coll.EnsureIndex(index)
 				if err != nil {

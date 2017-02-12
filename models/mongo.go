@@ -34,19 +34,19 @@ func NewMongoSession(clusterName string) (session *mgo.Session, err error) {
 	return MongoSessions[clusterName].Copy(), nil
 }
 
-type MongoDb struct {
+type MongoDB struct {
 	*mgo.Database
 }
 
-func NewMongoDb(clusterName string, dbName string) (db *MongoDb, err error) {
+func NewMongoDB(clusterName string, dbName string) (db *MongoDB, err error) {
 	session, err := NewMongoSession(clusterName)
 	if err != nil {
 		return nil, err
 	}
-	return &MongoDb{session.DB(dbName)}, nil
+	return &MongoDB{session.DB(dbName)}, nil
 }
 
-func (m *MongoDb) Close() {
+func (m *MongoDB) Close() {
 	m.Session.Close()
 }
 
@@ -55,7 +55,7 @@ type MongoColl struct {
 }
 
 func NewMongoColl(clusterName string, dbName string, collName string) (coll *MongoColl, err error) {
-	db, err := NewMongoDb(clusterName, dbName)
+	db, err := NewMongoDB(clusterName, dbName)
 	if err != nil {
 		return nil, err
 	}
@@ -66,10 +66,10 @@ func (m *MongoColl) Close() {
 	m.Database.Session.Close()
 }
 
-func EmptyDb(clusterName string, dbName string, collName string) (err error) {
+func EmptyDB(clusterName string, dbName string, collName string) (err error) {
 	var collNames []string
 	if collName == "" {
-		collNames, err = DbCollNames(clusterName, dbName)
+		collNames, err = DBCollNames(clusterName, dbName)
 		if err != nil {
 			return err
 		}
@@ -92,8 +92,8 @@ func EmptyDb(clusterName string, dbName string, collName string) (err error) {
 	return nil
 }
 
-func DbCollNames(clusterName string, dbName string) (collNames []string, err error) {
-	db, err := NewMongoDb(clusterName, dbName)
+func DBCollNames(clusterName string, dbName string) (collNames []string, err error) {
+	db, err := NewMongoDB(clusterName, dbName)
 	if err != nil {
 		return nil, err
 	}

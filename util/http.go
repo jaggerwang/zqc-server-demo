@@ -34,7 +34,7 @@ func Request(req *http.Request, timeout time.Duration) (body []byte, err error) 
 	return body, nil
 }
 
-func RequestJson(req *http.Request, timeout time.Duration) (result map[string]interface{}, err error) {
+func RequestJSON(req *http.Request, timeout time.Duration) (result map[string]interface{}, err error) {
 	body, err := Request(req, timeout)
 	if err != nil {
 		return nil, err

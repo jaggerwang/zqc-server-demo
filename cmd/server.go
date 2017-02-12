@@ -32,7 +32,7 @@ var serverCmd = &cobra.Command{
 
 		e := echo.New()
 		e.Debug = viper.GetBool("server.debug")
-		e.HTTPErrorHandler = controllers.HttpErrorHandler
+		e.HTTPErrorHandler = controllers.ErrorHandler
 
 		initEchoLog(e)
 

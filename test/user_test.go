@@ -10,7 +10,7 @@ import (
 
 func TestCreateUser(t *testing.T) {
 	Convey("Given an empty db", t, func() {
-		emptyDb()
+		emptyDB()
 
 		Convey("Create a user", func() {
 			_, err := services.CreateUser("18600000000", "123456", "jag", "m")
@@ -21,7 +21,7 @@ func TestCreateUser(t *testing.T) {
 
 func TestEditUser(t *testing.T) {
 	Convey("Given an exist user", t, func() {
-		emptyDb()
+		emptyDB()
 		user := createUser()
 
 		Convey("Update user", func() {

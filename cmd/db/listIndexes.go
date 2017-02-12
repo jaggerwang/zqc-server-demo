@@ -33,12 +33,12 @@ var ListIndexesCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		if listIndexesFlags.required {
 			if listIndexesFlags.db == "zqc" {
-				fmt.Printf("%# v\n", pretty.Formatter(models.ZqcDbIndexes))
+				fmt.Printf("%# v\n", pretty.Formatter(models.ZqcDBIndexes))
 			} else {
 				return errors.New("unknown db")
 			}
 		} else {
-			collNames, err := models.DbCollNames(listIndexesFlags.cluster, listIndexesFlags.db)
+			collNames, err := models.DBCollNames(listIndexesFlags.cluster, listIndexesFlags.db)
 			if err != nil {
 				return err
 			}
