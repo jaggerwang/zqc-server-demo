@@ -42,7 +42,7 @@ func NewUserFromModel(m models.User) (user User) {
 func CreateUser(mobile string, password string, nickname string, gender string) (user User, err error) {
 	c, err := models.NewUserColl()
 	if err != nil {
-		return user, NewServiceError(ErrCodeSystem, err.Error())
+		return user, NewError(ErrCodeSystem, err.Error())
 	}
 	defer c.Close()
 
@@ -60,12 +60,12 @@ func CreateUser(mobile string, password string, nickname string, gender string) 
 	}
 	err = c.Insert(m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeDuplicated, err.Error())
+		return user, NewError(ErrCodeDuplicated, err.Error())
 	}
 
 	err = c.FindId(m.Id).One(&m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeNotFound, err.Error())
+		return user, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	return NewUserFromModel(m), nil
@@ -74,14 +74,14 @@ func CreateUser(mobile string, password string, nickname string, gender string) 
 func UpdateUser(id bson.ObjectId, update bson.M) (user User, err error) {
 	c, err := models.NewUserColl()
 	if err != nil {
-		return user, NewServiceError(ErrCodeSystem, err.Error())
+		return user, NewError(ErrCodeSystem, err.Error())
 	}
 	defer c.Close()
 
 	var m models.User
 	err = c.FindId(id).One(&m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeNotFound, err.Error())
+		return user, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	if password, ok := update["password"]; ok {
@@ -97,12 +97,12 @@ func UpdateUser(id bson.ObjectId, update bson.M) (user User, err error) {
 		if strings.HasPrefix(err.Error(), "E11000 ") {
 			code = ErrCodeDuplicated
 		}
-		return user, NewServiceError(code, err.Error())
+		return user, NewError(code, err.Error())
 	}
 
 	err = c.FindId(id).One(&m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeNotFound, err.Error())
+		return user, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	return NewUserFromModel(m), nil
@@ -111,14 +111,14 @@ func UpdateUser(id bson.ObjectId, update bson.M) (user User, err error) {
 func GetUser(id bson.ObjectId) (user User, err error) {
 	c, err := models.NewUserColl()
 	if err != nil {
-		return user, NewServiceError(ErrCodeSystem, err.Error())
+		return user, NewError(ErrCodeSystem, err.Error())
 	}
 	defer c.Close()
 
 	var m models.User
 	err = c.FindId(id).One(&m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeNotFound, err.Error())
+		return user, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	return NewUserFromModel(m), nil
@@ -127,14 +127,14 @@ func GetUser(id bson.ObjectId) (user User, err error) {
 func GetUsers(ids []bson.ObjectId) (users []User, err error) {
 	c, err := models.NewUserColl()
 	if err != nil {
-		return users, NewServiceError(ErrCodeSystem, err.Error())
+		return users, NewError(ErrCodeSystem, err.Error())
 	}
 	defer c.Close()
 
 	ms := make([]models.User, 0, len(ids))
 	err = c.Find(bson.M{"_id": bson.M{"$in": ids}}).All(&ms)
 	if err != nil {
-		return users, NewServiceError(ErrCodeNotFound, err.Error())
+		return users, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	users = make([]User, 0, len(ids))
@@ -148,14 +148,14 @@ func GetUsers(ids []bson.ObjectId) (users []User, err error) {
 func GetUserByMobile(mobile string) (user User, err error) {
 	c, err := models.NewUserColl()
 	if err != nil {
-		return user, NewServiceError(ErrCodeSystem, err.Error())
+		return user, NewError(ErrCodeSystem, err.Error())
 	}
 	defer c.Close()
 
 	var m models.User
 	err = c.Find(bson.M{"mobile": mobile}).One(&m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeNotFound, err.Error())
+		return user, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	return NewUserFromModel(m), nil
@@ -164,18 +164,18 @@ func GetUserByMobile(mobile string) (user User, err error) {
 func VerifyUserPassword(id bson.ObjectId, password string) (user User, err error) {
 	c, err := models.NewUserColl()
 	if err != nil {
-		return user, NewServiceError(ErrCodeSystem, err.Error())
+		return user, NewError(ErrCodeSystem, err.Error())
 	}
 	defer c.Close()
 
 	var m models.User
 	err = c.Find(bson.M{"_id": id}).One(&m)
 	if err != nil {
-		return user, NewServiceError(ErrCodeNotFound, err.Error())
+		return user, NewError(ErrCodeNotFound, err.Error())
 	}
 
 	if util.Md5WithSalt(password, m.Salt) != m.Password {
-		return user, NewServiceError(ErrCodeWrongPassword, "")
+		return user, NewError(ErrCodeWrongPassword, "")
 	}
 
 	return NewUserFromModel(m), nil

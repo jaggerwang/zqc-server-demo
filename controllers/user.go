@@ -18,11 +18,11 @@ func UserInfo(c echo.Context) (err error) {
 		Id: cc.FormValue("id"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 	id, err := services.ParseObjectId(params.Id)
 	if err != nil {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 
 	user, err := services.GetUser(id)
@@ -45,11 +45,11 @@ func UserInfos(c echo.Context) (err error) {
 		Ids: cc.FormValue("ids"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 	ids, err := services.ParseObjectIds(params.Ids)
 	if err != nil {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 
 	users, err := services.GetUsers(ids)

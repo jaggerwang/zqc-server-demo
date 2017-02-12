@@ -25,7 +25,7 @@ func RegisterAccount(c echo.Context) (err error) {
 		Gender:   cc.FormValue("gender"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 
 	user, err := services.CreateUser(params.Mobile, params.Password, params.Nickname, params.Gender)
@@ -50,12 +50,12 @@ func Login(c echo.Context) (err error) {
 		Password: cc.FormValue("password"),
 	}
 	if ok, err := valid.ValidateStruct(params); !ok {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 
 	user, err := services.GetUserByMobile(params.Mobile)
 	if err != nil {
-		return services.NewServiceError(services.ErrCodeNotFound, "mobile not exist")
+		return services.NewError(services.ErrCodeNotFound, "mobile not exist")
 	}
 
 	user, err = services.VerifyUserPassword(user.Id, params.Password)
@@ -111,12 +111,12 @@ func EditAccount(c echo.Context) (err error) {
 		Gender:   cc.FormValue("gender"),
 	}
 	if ok, err := valid.ValidateStruct(&params); !ok {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 
 	formParams, err := cc.FormParams()
 	if err != nil {
-		return services.NewServiceError(services.ErrCodeInvalidParams, err.Error())
+		return services.NewError(services.ErrCodeInvalidParams, err.Error())
 	}
 	updateParams := bson.M{}
 	if _, ok := formParams["mobile"]; ok {

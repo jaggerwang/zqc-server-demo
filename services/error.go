@@ -32,23 +32,23 @@ var ErrMessages = map[int]string{
 	ErrCodeWrongPassword: "密码错误",
 }
 
-type ServiceError struct {
+type Error struct {
 	Code    int
 	Message string
 	Context interface{}
 }
 
-func NewServiceError(code int, message string, ctx ...interface{}) (err *ServiceError) {
+func NewError(code int, message string, ctx ...interface{}) (err *Error) {
 	if message == "" {
 		message = ErrMessages[code]
 	}
-	return &ServiceError{
+	return &Error{
 		Code:    code,
 		Message: message,
 		Context: ctx,
 	}
 }
 
-func (s *ServiceError) Error() (err string) {
+func (s *Error) Error() (err string) {
 	return s.Message
 }

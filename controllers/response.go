@@ -43,7 +43,7 @@ func HttpErrorHandler(err error, c echo.Context) {
 		status = he.Code
 		code = services.ErrCodeHttp
 		message = he.Error()
-	} else if se, ok := err.(*services.ServiceError); ok {
+	} else if se, ok := err.(*services.Error); ok {
 		code = se.Code
 		if c.Echo().Debug {
 			message = se.Message
