@@ -1,6 +1,6 @@
 # Zaiqiuchang server demo
 
-Zaiqiuchang is a mobile app developed using React Native, both iOS and Android are supported. This project is the lite version of the api service code, which developed in Go, and deploy using Docker. The lite version is only including user related api, but it should be a good start point for developing any api service. 
+[Zaiqiuchang(在球场)](https://www.zaiqiuchang.com) is a mobile app developed using React Native, both iOS and Android are supported. This project is the lite version of the api server, which developed in Go, and deploy using Docker. The lite version only include account related apis, but it should be a good start to develop your own. 
 
 ### Packages
 
